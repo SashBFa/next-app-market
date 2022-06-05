@@ -9,10 +9,12 @@ import {
   Menu,
   MenuItem,
   MenuList,
+  Button,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBars,
   faEllipsisVertical,
   faMagnifyingGlass,
   faUser,
@@ -119,7 +121,10 @@ const Navigation = () => {
                 color="inherit"
                 className="w-full"
               >
-                <FontAwesomeIcon icon={faEllipsisVertical} />
+                <FontAwesomeIcon
+                  icon={faEllipsisVertical}
+                  className="drop-shadow-md"
+                />
               </IconButton>
             ) : (
               <IconButton
@@ -131,7 +136,7 @@ const Navigation = () => {
                 color="inherit"
                 className="w-full"
               >
-                <FontAwesomeIcon icon={faXmark} />
+                <FontAwesomeIcon icon={faXmark} className="drop-shadow-md" />
               </IconButton>
             )}
           </div>
@@ -146,14 +151,17 @@ const Navigation = () => {
           </Typography>
           <Search className="hidden sm:block">
             <SearchIconWrapper>
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className="drop-shadow-md"
+              />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-          <div className="w-16 px-1">
+          <div className="w-28 px-1 lg:hidden">
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -161,10 +169,17 @@ const Navigation = () => {
               aria-haspopup="true"
               onClick={handleMenu}
               color="inherit"
-              className={`w-full`}
+              className={`w-full flex justify-between`}
             >
-              <FontAwesomeIcon icon={faUser} />
+              <div className="shadow-md hover:scale-105 rounded-3xl w-full">
+                <FontAwesomeIcon
+                  icon={faBars}
+                  className="text-xl mr-1 mb-0.5 drop-shadow-md"
+                />
+                <FontAwesomeIcon icon={faUser} className="drop-shadow-md" />
+              </div>
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
@@ -180,13 +195,27 @@ const Navigation = () => {
               }}
               open={Boolean(anchorEl)}
               onClose={handleClose}
-              className="top-12 -left-8"
+              className="top-16 lg:hidden"
             >
               <MenuItem onClick={handleClose}>Profile</MenuItem>
               <MenuItem onClick={handleClose}>My account</MenuItem>
               <MenuItem onClick={handleClose}>Profile</MenuItem>
               <MenuItem onClick={handleClose}>My account</MenuItem>
             </Menu>
+          </div>
+          <div className="hidden px-6 lg:flex justify-between w-56">
+            <Button
+              variant="outlined"
+              className="text-primary border-primary shadow-md bg-white hover:text-white hover:border-white"
+            >
+              Sign in
+            </Button>
+            <Button
+              variant="outlined"
+              className="text-white border-white shadow-md hover:bg-white hover:text-primary"
+            >
+              Login
+            </Button>
           </div>
         </Toolbar>
       </AppBar>
