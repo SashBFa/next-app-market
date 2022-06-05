@@ -8,6 +8,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  MenuList,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,27 +16,28 @@ import {
   faEllipsisVertical,
   faMagnifyingGlass,
   faUser,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import LateralNavigation from "./LateralNavigation";
 
 const Navigation = () => {
-  const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-  };
+  const [burgerMenu, setBurgerMenu] = useState<null | HTMLElement>(null);
+  const [show, setShow] = useState<boolean>(true);
+  let oldScroll: number = 0;
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const [show, setShow] = useState(true);
 
-  let oldScroll = 0;
+  const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setBurgerMenu(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setBurgerMenu(null);
+  };
 
   const controlNavigation = () => {
     if (window.scrollY < 200) {
@@ -98,70 +100,127 @@ const Navigation = () => {
     },
   }));
   return (
-    <AppBar
-      component="nav"
-      className={`fixed w-10/12 right-3 lg:right-6 text-white transition-all duration-1000 ease-in-out bg-primary ${
-        show ? "opacity-100 top-6" : "opacity-0 -top-6"
-      }`}
-    >
-      <LateralNavigation />
-      <Toolbar className="flex justify-between">
-        <div className="mr-3 sm:mr-7">
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            color="inherit"
+    <>
+      <AppBar
+        component="nav"
+        className={`fixed w-10/12 right-3 lg:right-6 text-white transition-all duration-1000 ease-in-out bg-primary ${
+          show ? "opacity-100 top-6" : "opacity-0 -top-6"
+        }`}
+      >
+        <Toolbar className="flex p-0">
+          <div className=" w-16 px-1">
+            {!burgerMenu ? (
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenMenu}
+                color="inherit"
+                className="w-full"
+              >
+                <FontAwesomeIcon icon={faEllipsisVertical} />
+              </IconButton>
+            ) : (
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleCloseMenu}
+                color="inherit"
+                className="w-full"
+              >
+                <FontAwesomeIcon icon={faXmark} />
+              </IconButton>
+            )}
+          </div>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1 }}
+            className={``}
           >
-            <FontAwesomeIcon icon={faEllipsisVertical} />
-          </IconButton>
-        </div>
-        <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-          LOGO
-        </Typography>
-        <Search className="hidden sm:block">
-          <SearchIconWrapper>
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search>
-        <div className="sm:ml-7">
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleMenu}
-            color="inherit"
-          >
-            <FontAwesomeIcon icon={faUser} />
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-            className="top-12 -left-8"
-          >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
-          </Menu>
-        </div>
-      </Toolbar>
-    </AppBar>
+            LOGO
+          </Typography>
+          <Search className="hidden sm:block">
+            <SearchIconWrapper>
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
+          <div className="w-16 px-1">
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+              className={`w-full`}
+            >
+              <FontAwesomeIcon icon={faUser} />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              disableScrollLock={true}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              className="top-12 -left-8"
+            >
+              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem onClick={handleClose}>My account</MenuItem>
+            </Menu>
+          </div>
+        </Toolbar>
+      </AppBar>
+      <AppBar>
+        <Menu
+          anchorEl={burgerMenu}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          disableScrollLock={true}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          open={Boolean(burgerMenu)}
+          onClose={handleCloseMenu}
+          className={`-top-3 -left-6 sm:-left-20 lg:-left-32 z-10 `}
+        >
+          <MenuList className="w-60 pt-20">
+            <MenuItem onClick={handleCloseMenu}>Title1</MenuItem>
+            <MenuItem onClick={handleCloseMenu}>Title2</MenuItem>
+            <MenuItem onClick={handleCloseMenu}>Title3</MenuItem>
+            <MenuItem onClick={handleCloseMenu}>Title4</MenuItem>
+            <MenuItem onClick={handleCloseMenu}>Title5</MenuItem>
+            <MenuItem onClick={handleCloseMenu}>Title6</MenuItem>
+            <MenuItem onClick={handleCloseMenu}>Title7</MenuItem>
+            <MenuItem onClick={handleCloseMenu}>Title8</MenuItem>
+            <MenuItem onClick={handleCloseMenu}>Title9</MenuItem>
+          </MenuList>
+        </Menu>
+      </AppBar>
+    </>
   );
 };
 
