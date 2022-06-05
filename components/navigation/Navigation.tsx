@@ -147,7 +147,7 @@ const Navigation = () => {
             sx={{ flexGrow: 1 }}
             className={``}
           >
-            LOGO
+            Book Market
           </Typography>
           <Search className="hidden sm:block">
             <SearchIconWrapper>

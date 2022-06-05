@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const Header = () => {
@@ -12,8 +13,7 @@ const Header = () => {
         className="w-full h-full object-cover fixed -z-50"
       />
       <div className="absolute w-full h-full top-0 flex flex-col justify-center items-center text-white">
-        <h1>Welcome</h1>
-        <p>Into my site</p>
+        <Image src="/img/logo.png" alt="logo" width={300} height={300} />
       </div>
     </header>
   );
