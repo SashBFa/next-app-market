@@ -105,12 +105,12 @@ const Navigation = () => {
     <>
       <AppBar
         component="nav"
-        className={`fixed w-10/12 right-3 lg:right-6 text-white transition-all duration-1000 ease-in-out bg-primary ${
-          show ? "opacity-100 top-6" : "opacity-0 -top-6"
+        className={`fixed w-10/12 right-3 lg:right-6 text-white transition-all duration-1000 ease-in-out  px-0 ${
+          show ? "opacity-100 top-6 bg-primary" : "opacity-0 -top-6 bg-white"
         }`}
       >
         <Toolbar className="flex p-0">
-          <div className=" w-16 px-1">
+          <div className=" w-12 sm:w-16 px-1">
             {!burgerMenu ? (
               <IconButton
                 size="large"
@@ -161,7 +161,7 @@ const Navigation = () => {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-          <div className="w-28 px-1 lg:hidden">
+          <div className="w-20 sm:w-28 px-1 lg:hidden">
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -174,9 +174,12 @@ const Navigation = () => {
               <div className="shadow-md hover:scale-105 rounded-3xl w-full">
                 <FontAwesomeIcon
                   icon={faBars}
-                  className="text-xl mr-1 mb-0.5 drop-shadow-md"
+                  className="text-xs sm:text-sm mr-1 drop-shadow-md"
                 />
-                <FontAwesomeIcon icon={faUser} className="drop-shadow-md" />
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="drop-shadow-md text-lg sm:text-xl"
+                />
               </div>
             </IconButton>
 
