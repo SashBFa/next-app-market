@@ -1,14 +1,10 @@
-import { Typography } from "@mui/material";
-import Meta from "../components/utils/Meta";
+import Layout from "../components/Layout";
 
 const index = () => {
   return (
-    <>
-      <Meta />
-      <Typography component="h1" variant="h1">
-        Book Market
-      </Typography>
-    </>
+    <Layout>
+      <h1>list Products</h1>
+    </Layout>
   );
 };
 

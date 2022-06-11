@@ -1,7 +1,5 @@
 import "../styles/index.css";
 import type { AppProps } from "next/app";
-// import Layout from "../components/divers/Layout";
-// import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 
